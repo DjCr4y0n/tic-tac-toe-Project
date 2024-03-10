@@ -6,6 +6,7 @@ body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,fieldset,input,textarea,p,
 html,body {
     margin:0;
     padding:0;
+    height: 100%;
 }
 table {
     border-collapse:collapse;
@@ -39,4 +40,45 @@ q:before,q:after {
 }
 abbr,acronym { border:0;
 }
+
+/* My own styling */
+body
+{
+    display: flex;
+    flex-direction: column;
+}
+
+.header
+{
+    height: 10vh;
+}
+
+.main
+{
+    flex: 1;
+    display: flex;   
+}
+
+.game-controls
+{
+    width: 20%;
+    height: 100%;
+}
+
+.game-content
+{
+    display: flex;
+    flex: 1;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+}
+
+.board
+{
+    display: grid;
+    grid-template: repeat(3, minmax(10em,1fr)) / repeat(3,minmax(10em,1fr));
+}
+
+
   
