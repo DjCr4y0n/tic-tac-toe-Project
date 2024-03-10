@@ -162,14 +162,53 @@ function GameController(playerOne = "Player One", playerTwo = "Player Two")
         counter = 0;
     }
 
-    return {playRound};
+    return {playRound, getActivePlayer, getBoard: gameboard.getBoard};
 };
 
-const game = GameController();
 
-function DOM()
-{
-    
+function DOM() {
+    const game = GameController();
+    const gameBoard = document.querySelector('.board');
+
+    const updateScreen = () => {
+        gameBoard.textContent = "";
+
+        const gameboard = game.getBoard();
+        const activePlayer = game.getActivePlayer();
+
+        gameboard.forEach((row, rowIndex) => {
+            row.forEach((cell, columnIndex) => {
+
+                const cellButton = document.createElement("button");
+                cellButton.class = "cell";
+
+                cellButton.dataset.row = rowIndex;
+                cellButton.dataset.column = columnIndex;
+
+                if (cell !== 0) {
+                    cellButton.textContent = cell;
+                }
+
+                cellButton.style.border = 'solid 1px black';
+                gameBoard.appendChild(cellButton);
+            })
+        })
+    }
+
+    function clickHandlerBoard(e) {
+        const selectedRow = e.target.dataset.row;
+        const selectedColumn = e.target.dataset.column;
+
+        if (!selectedRow || !selectedColumn) return;
+
+        game.playRound(selectedRow, selectedColumn);
+        updateScreen();
+    }
+
+    gameBoard.addEventListener("click", clickHandlerBoard);
+
+    // Initial render
+    updateScreen();
 }
 
-
+DOM();
