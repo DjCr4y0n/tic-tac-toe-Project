@@ -69,11 +69,13 @@ function GameController(playerOne = "Player One", playerTwo = "Player Two")
     const players = [
         {
             nick: playerOne,
-            marker: "X"
+            marker: "X",
+            score: 0
         },
         {
             nick: playerTwo,
-            marker: "O"
+            marker: "O",
+            score: 0
         }
     ];
 
@@ -83,6 +85,9 @@ function GameController(playerOne = "Player One", playerTwo = "Player Two")
         if(activePlayer == players[0]) activePlayer = players[1];
         else activePlayer = players[0];
     };
+
+    const getPlayerOneScore = () => players[0].score;
+    const getPlayerTwoScore = () => players[1].score;
 
     const getActivePlayer = () => activePlayer;
 
@@ -119,34 +124,42 @@ function GameController(playerOne = "Player One", playerTwo = "Player Two")
         
         if (gameboard.getBoard()[0].every(checkValue)) {
             console.log(`Game Winner is ${getActivePlayer().nick}`);
+            getActivePlayer().score += 1;
             gameEnded = true;
         }
         else if (gameboard.getBoard()[1].every(checkValue)) {
             console.log(`Game Winner is ${getActivePlayer().nick}`);
+            getActivePlayer().score += 1;
             gameEnded = true;
         }
         else if (gameboard.getBoard()[2].every(checkValue)) {
             console.log(`Game Winner1 is ${getActivePlayer().nick}`);
+            getActivePlayer().score += 1;
             gameEnded = true;
         }
         else if (gameboard.getBoard()[0][0] === gameboard.getBoard()[1][0] && gameboard.getBoard()[1][0] === gameboard.getBoard()[2][0] && gameboard.getBoard()[0][0]!=0) {
             console.log(`Game Winner3 is ${getActivePlayer().nick}`);
+            getActivePlayer().score += 1;
             gameEnded = true;
         }
         else if (gameboard.getBoard()[0][1] === gameboard.getBoard()[1][1] && gameboard.getBoard()[1][1] === gameboard.getBoard()[2][1] && gameboard.getBoard()[0][1]!=0) {
             console.log(`Game Winner4 is ${getActivePlayer().nick}`);
+            getActivePlayer().score += 1;
             gameEnded = true;
         }
         else if (gameboard.getBoard()[0][2] === gameboard.getBoard()[1][2] && gameboard.getBoard()[1][2] === gameboard.getBoard()[2][2] && gameboard.getBoard()[0][2]!=0) {
             console.log(`Game Winner5 is ${getActivePlayer().nick}`);
+            getActivePlayer().score += 1;
             gameEnded = true;
         }
         else if (gameboard.getBoard()[0][0] === gameboard.getBoard()[1][1] && gameboard.getBoard()[1][1] === gameboard.getBoard()[2][2] && gameboard.getBoard()[0][0]!=0) {
             console.log(`Game Winner6 is ${getActivePlayer().nick}`);
+            getActivePlayer().score += 1;
             gameEnded = true;
         }
         else if (gameboard.getBoard()[0][2] === gameboard.getBoard()[1][1] && gameboard.getBoard()[1][1] === gameboard.getBoard()[2][0] && gameboard.getBoard()[0][2]!=0) {
             console.log(`Game Winner7 is ${getActivePlayer().nick}`);
+            getActivePlayer().score += 1;
             gameEnded = true;
         }
         else if(counter >= 9)
@@ -160,21 +173,31 @@ function GameController(playerOne = "Player One", playerTwo = "Player Two")
     {
         gameboard.clearBoard();
         counter = 0;
+        gameEnded = false;
     }
 
-    return {playRound, getActivePlayer, getBoard: gameboard.getBoard};
+    return {playRound, getActivePlayer, getBoard: gameboard.getBoard, getPlayerOneScore, getPlayerTwoScore};
 };
 
 
 function DOM() {
     const game = GameController();
     const gameBoard = document.querySelector('.board');
+    const scoreDivOne = document.querySelector('.player1-score');
+    const scoreDivTwo= document.querySelector('.player2-score');
+    const currentTurn = document.querySelector('.activePlayer-div');
 
     const updateScreen = () => {
         gameBoard.textContent = "";
 
         const gameboard = game.getBoard();
         const activePlayer = game.getActivePlayer();
+
+        currentTurn.textContent = `${activePlayer.nick}'s turn`;
+
+        scoreDivOne.textContent = `${game.getPlayerOneScore()}`;
+        scoreDivTwo.textContent = `${game.getPlayerTwoScore()}`;
+
 
         gameboard.forEach((row, rowIndex) => {
             row.forEach((cell, columnIndex) => {
