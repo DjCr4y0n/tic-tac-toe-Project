@@ -64,7 +64,7 @@ function Spot()
 function GameController(playerOne = "Player One", playerTwo = "Player Two")
 {
     const gameboard = Gameboard();
-    let gameEnded = false; 
+    let gameEnded = false;
 
     const players = [
         {
@@ -204,6 +204,7 @@ function DOM() {
 
                 const cellButton = document.createElement("button");
                 cellButton.class = "cell";
+                cellButton.style.backgroundColor = 'white';
 
                 cellButton.dataset.row = rowIndex;
                 cellButton.dataset.column = columnIndex;
@@ -212,7 +213,7 @@ function DOM() {
                     cellButton.textContent = cell;
                 }
 
-                cellButton.style.border = 'solid 1px black';
+                cellButton.style.border = 'solid 10px black';
                 gameBoard.appendChild(cellButton);
             })
         })

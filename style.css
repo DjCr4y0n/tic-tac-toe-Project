@@ -58,13 +58,15 @@ body
 .main
 {
     flex: 1;
-    display: grid;
-    grid-template: auto/1fr 4fr;   
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px; 
 }
 
 .game-controls
 {
     height: 100%;
+    padding: 10px;
 }
 
 .game-content
@@ -84,10 +86,15 @@ body
 
 .score-div
 {
-    width: 100%;
     display: flex;
-    justify-content: space-between;
+    gap: 200px;
 }
+
+.informations-div div
+{
+    text-align: center;
+}
+
 
 
   
