@@ -108,7 +108,7 @@ function GameController(playerOne = "Player One", playerTwo = "Player Two")
         checkState();
         if (gameEnded) {
             console.log("Game has already ended.");
-            gameEnd();
+            roundEnd();
             return;
         }
         switchPlayerTurn();
@@ -169,14 +169,24 @@ function GameController(playerOne = "Player One", playerTwo = "Player Two")
         }
     }
 
-    const gameEnd = () =>
+    const roundEnd = () =>
     {
         gameboard.clearBoard();
         counter = 0;
         gameEnded = false;
     }
 
-    return {playRound, getActivePlayer, getBoard: gameboard.getBoard, getPlayerOneScore, getPlayerTwoScore};
+    const gameRestart = () =>
+    {
+        gameboard.clearBoard();
+        counter = 0;
+        players[0].score = 0;
+        players[1].score = 0;
+        gameEnded = false;
+        activePlayer = players[0];
+    }
+
+    return {playRound, getActivePlayer, getBoard: gameboard.getBoard, getPlayerOneScore, getPlayerTwoScore, gameRestart};
 };
 
 
@@ -186,6 +196,7 @@ function DOM() {
     const scoreDivOne = document.querySelector('.player1-score');
     const scoreDivTwo= document.querySelector('.player2-score');
     const currentTurn = document.querySelector('.activePlayer-div');
+    const restartButton = document.querySelector('.restart-button')
 
     const updateScreen = () => {
         gameBoard.textContent = "";
@@ -232,6 +243,13 @@ function DOM() {
         })
     }
 
+    function restartHandler()
+    {
+        console.log('a');
+        game.gameRestart();
+        updateScreen();
+    }
+
     function clickHandlerBoard(e) {
         const selectedRow = e.target.dataset.row;
         const selectedColumn = e.target.dataset.column;
@@ -242,6 +260,7 @@ function DOM() {
         updateScreen();
     }
 
+    restartButton.addEventListener("click", restartHandler);
     gameBoard.addEventListener("click", clickHandlerBoard);
 
     // Initial render
