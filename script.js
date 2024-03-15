@@ -201,19 +201,32 @@ function DOM() {
 
         gameboard.forEach((row, rowIndex) => {
             row.forEach((cell, columnIndex) => {
+                const xImage = document.createElement('img');
+                xImage.setAttribute("src", "close.svg");
+                const oImage = document.createElement('img');
+                oImage.setAttribute("src", "ellipse-outline.svg");
+
+
 
                 const cellButton = document.createElement("button");
                 cellButton.class = "cell";
                 cellButton.style.backgroundColor = 'white';
+                cellButton.style.border = "10px solid black";
 
                 cellButton.dataset.row = rowIndex;
                 cellButton.dataset.column = columnIndex;
 
                 if (cell !== 0) {
-                    cellButton.textContent = cell;
-                }
+                    if(cell == "X") cellButton.appendChild(xImage);
+                    else if(cell == "O") cellButton.appendChild(oImage);
+                };
 
-                cellButton.style.border = 'solid 10px black';
+                if(columnIndex == 2) cellButton.style.borderRight = "none";
+                if(rowIndex == 2 || rowIndex == 0 || rowIndex == 1) cellButton.style.borderBottom = "none";
+                if(rowIndex == 0) cellButton.style.borderTop = "none";
+                if(columnIndex == 0 || columnIndex == 1 || columnIndex==2) cellButton.style.borderLeft = "none";
+                
+
                 gameBoard.appendChild(cellButton);
             })
         })
