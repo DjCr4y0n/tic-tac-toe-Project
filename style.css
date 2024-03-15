@@ -80,20 +80,66 @@ body
 
 .board
 {
+    height: 600px;
+    width: 600px;
     display: grid;
-    grid-template: repeat(3, minmax(200px,1fr)) / repeat(3,minmax(200px,1fr));
+    grid-template: repeat(3, 1fr) / repeat(3,1fr);
 }
 
-.score-div
+.score-table
 {
-    display: flex;
-    gap: 200px;
-}
-
-.informations-div div
-{
+    padding: 5px;
+    display: grid;
+    grid-template: 2em 2em 1fr / 1fr 1fr;
+    row-gap: 3px;
+    border: 3px solid black;
+    border-radius: 16px;
     text-align: center;
 }
+
+.score-table h1
+{
+    font-size: 15px;
+    grid-column: 1/3;
+}
+
+.informations-div 
+{
+    font-family: "Bevan", serif;
+    font-weight: 400;
+    font-style: normal;
+    width: 100%;
+    display: flex;
+    text-align: center;
+    justify-content: space-around;
+}
+
+
+.activePlayer-div, 
+.player1-score, .player2-score
+{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    font-size: 2em;
+
+}
+
+@media(max-width: 660px)
+{
+    .board
+    {
+        width: 300px;
+        height: 300px;
+    }
+
+    .score-table h1
+    {
+        font-size: 10px;
+    }
+
+}
+
 
 
 
